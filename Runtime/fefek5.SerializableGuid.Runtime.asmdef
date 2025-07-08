@@ -1,0 +1,14 @@
+{
+    "name": "fefek5.SerializableGuid.Runtime",
+    "rootNamespace": "fefek5.SerializableGuid.Runtime",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

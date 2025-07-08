@@ -1,0 +1,11 @@
+﻿{
+  "name": "com.fefek5.serializable-guid",
+  "version": "1.0.0",
+  "displayName": "Serializable Guid",
+  "description": "Just a variable with unity custom property drawer serializing nice GUID represents by 4 uint values.",
+  "unity": "6000.0",
+  "author": {
+    "name": "fefek5",
+    "url": "https://github.com/jfderegowski"
+  }
+}
