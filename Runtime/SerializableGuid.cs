@@ -17,6 +17,8 @@ namespace fefek5.SerializableGuid.Runtime
         [SerializeField, HideInInspector] public uint Part3;
         [SerializeField, HideInInspector] public uint Part4;
 
+        private static readonly bool[] _hexCharLookup = CreateHexCharLookup();
+        
         #endregion
 
         #region Properties
@@ -66,8 +68,32 @@ namespace fefek5.SerializableGuid.Runtime
 
         public static SerializableGuid FromHexString(string hexString) => new(hexString);
 
-        public static bool IsHexString(string hexString) =>
-            hexString is { Length: 32 } && IsMatch(hexString, @"\A\b[0-9a-fA-F]+\b\Z");
+        private static bool[] CreateHexCharLookup()
+        {
+            var hexCharLookup = new bool[128];
+            
+            for (var c = '0'; c <= '9'; c++) hexCharLookup[c] = true;
+            for (var c = 'A'; c <= 'F'; c++) hexCharLookup[c] = true;
+            for (var c = 'a'; c <= 'f'; c++) hexCharLookup[c] = true;
+            
+            return hexCharLookup;
+        }
+
+        public static bool IsHexString(string hexString)
+        {
+            if (hexString is null || hexString.Length != 32)
+                return false;
+
+            for (var i = 0; i < hexString.Length; i++)
+            {
+                var c = hexString[i];
+                
+                if (c >= 128 || !_hexCharLookup[c])
+                    return false;
+            }
+
+            return true;
+        }
 
         public Guid ToGuid()
         {
