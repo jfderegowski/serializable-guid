@@ -133,8 +133,11 @@ namespace fefek5.SerializableGuid.Editor
         private static string BuildGuidString(SerializedProperty[] guidParts) =>
             new StringBuilder()
                 .AppendFormat("{0:X8}", guidParts[0].uintValue)
+                .Append("-")
                 .AppendFormat("{0:X8}", guidParts[1].uintValue)
+                .Append("-")
                 .AppendFormat("{0:X8}", guidParts[2].uintValue)
+                .Append("-")
                 .AppendFormat("{0:X8}", guidParts[3].uintValue)
                 .ToString();
     }
