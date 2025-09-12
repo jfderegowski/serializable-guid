@@ -2,7 +2,7 @@
 using UnityEngine;
 using static System.Text.RegularExpressions.Regex;
 
-namespace fefek5.SerializableGuid.Runtime
+namespace fefek5.SerializableGuidVariable.Runtime
 {
     /// <summary>
     /// Represents a globally unique identifier (GUID) that is serializable with Unity and usable in game scripts.

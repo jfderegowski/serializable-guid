@@ -4,7 +4,7 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 
-namespace fefek5.SerializableGuid.Editor
+namespace fefek5.SerializableGuidVariable.Editor
 {
     [CustomPropertyDrawer(typeof(Runtime.SerializableGuid))]
     public class SerializableGuidDrawer : PropertyDrawer

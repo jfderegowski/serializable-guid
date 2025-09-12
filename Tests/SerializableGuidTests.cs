@@ -1,15 +1,15 @@
 ﻿using System;
-using fefek5.SerializableGuid.Runtime;
+using fefek5.SerializableGuidVariable.Runtime;
 using NUnit.Framework;
 
-namespace fefek5.SerializableGuid.Tests
+namespace fefek5.SerializableGuidVariable.Tests
 {
     public class SerializableGuidTests
     {
         [Test]
         public void SerializableGuidEmptyShouldBeZero()
         {
-            var emptyGuid = SerializableGuid.Runtime.SerializableGuid.Empty;
+            var emptyGuid = SerializableGuid.Empty;
             Assert.AreEqual(0u, emptyGuid.Part1);
             Assert.AreEqual(0u, emptyGuid.Part2);
             Assert.AreEqual(0u, emptyGuid.Part3);
@@ -19,20 +19,20 @@ namespace fefek5.SerializableGuid.Tests
         [Test]
         public void SerializableGuidIsEmptyShouldReturnTrueForEmpty()
         {
-            Assert.IsTrue(SerializableGuid.Runtime.SerializableGuid.Empty.IsEmpty);
+            Assert.IsTrue(SerializableGuid.Empty.IsEmpty);
         }
 
         [Test]
         public void SerializableGuidIsEmptyShouldReturnFalseForNonEmpty()
         {
-            var guid = new SerializableGuid.Runtime.SerializableGuid(1, 2, 3, 4);
+            var guid = new SerializableGuid(1, 2, 3, 4);
             Assert.IsFalse(guid.IsEmpty);
         }
 
         [Test]
         public void SerializableGuidConstructorFromUIntsShouldSetParts()
         {
-            var guid = new SerializableGuid.Runtime.SerializableGuid(1, 2, 3, 4);
+            var guid = new SerializableGuid(1, 2, 3, 4);
             Assert.AreEqual(1u, guid.Part1);
             Assert.AreEqual(2u, guid.Part2);
             Assert.AreEqual(3u, guid.Part3);
@@ -43,7 +43,7 @@ namespace fefek5.SerializableGuid.Tests
         public void SerializableGuidConstructorFromGuidShouldSetPartsCorrectly()
         {
             var originalGuid = Guid.NewGuid();
-            var serializableGuid = new SerializableGuid.Runtime.SerializableGuid(originalGuid);
+            var serializableGuid = new SerializableGuid(originalGuid);
             var convertedGuid = serializableGuid.ToGuid();
 
             Assert.AreEqual(originalGuid, convertedGuid);
@@ -53,7 +53,7 @@ namespace fefek5.SerializableGuid.Tests
         public void SerializableGuidConstructorFromHexStringShouldSetPartsCorrectly()
         {
             var hexString = "0102030405060708090A0B0C0D0E0F10";
-            var serializableGuid = new SerializableGuid.Runtime.SerializableGuid(hexString);
+            var serializableGuid = new SerializableGuid(hexString);
             Assert.AreEqual(0x01020304u, serializableGuid.Part1);
             Assert.AreEqual(0x05060708u, serializableGuid.Part2);
             Assert.AreEqual(0x090A0B0Cu, serializableGuid.Part3);
@@ -64,14 +64,14 @@ namespace fefek5.SerializableGuid.Tests
         public void SerializableGuidConstructorFromInvalidHexStringShouldThrowException()
         {
             Assert.Throws(typeof(ArgumentException), () => {
-                var serializableGuid = new SerializableGuid.Runtime.SerializableGuid("invalidHexString");
+                var serializableGuid = new SerializableGuid("invalidHexString");
             });
         }
 
         [Test]
         public void SerializableGuidNewGuidShouldReturnANonEmptyGuid()
         {
-            var guid = SerializableGuid.Runtime.SerializableGuid.NewGuid();
+            var guid = SerializableGuid.NewGuid();
             Assert.IsFalse(guid.IsEmpty);
         }
 
@@ -79,7 +79,7 @@ namespace fefek5.SerializableGuid.Tests
         public void SerializableGuidFromHexStringShouldReturnCorrectGuid()
         {
             var hexString = "0102030405060708090A0B0C0D0E0F10";
-            var serializableGuid = SerializableGuid.Runtime.SerializableGuid.FromHexString(hexString);
+            var serializableGuid = SerializableGuid.FromHexString(hexString);
             Assert.AreEqual(0x01020304u, serializableGuid.Part1);
             Assert.AreEqual(0x05060708u, serializableGuid.Part2);
             Assert.AreEqual(0x090A0B0Cu, serializableGuid.Part3);
@@ -90,35 +90,35 @@ namespace fefek5.SerializableGuid.Tests
         public void SerializableGuidFromHexStringShouldThrowException()
         {
             Assert.Throws(typeof(ArgumentException), () => {
-                var serializableGuid = SerializableGuid.Runtime.SerializableGuid.FromHexString("invalidHexString");
+                var serializableGuid = SerializableGuid.FromHexString("invalidHexString");
             });
         }
 
         [Test]
         public void SerializableGuidIsHexStringShouldReturnTrueForValidHexString()
         {
-            Assert.IsTrue(SerializableGuid.Runtime.SerializableGuid.IsHexString("0102030405060708090A0B0C0D0E0F10"));
+            Assert.IsTrue(SerializableGuid.IsHexString("0102030405060708090A0B0C0D0E0F10"));
         }
 
         [Test]
         public void SerializableGuidIsHexStringShouldReturnFalseForInvalidHexString()
         {
-            Assert.IsFalse(SerializableGuid.Runtime.SerializableGuid.IsHexString("invalid"));
-            Assert.IsFalse(SerializableGuid.Runtime.SerializableGuid.IsHexString("0102030405060708090A0B0C0D0E0F101"));
-            Assert.IsFalse(SerializableGuid.Runtime.SerializableGuid.IsHexString(null));
+            Assert.IsFalse(SerializableGuid.IsHexString("invalid"));
+            Assert.IsFalse(SerializableGuid.IsHexString("0102030405060708090A0B0C0D0E0F101"));
+            Assert.IsFalse(SerializableGuid.IsHexString(null));
         }
 
         [Test]
         public void SerializableGuidToHexStringShouldReturnCorrectHexString()
         {
-            var guid = new SerializableGuid.Runtime.SerializableGuid(0x01020304, 0x05060708, 0x090A0B0C, 0x0D0E0F10);
+            var guid = new SerializableGuid(0x01020304, 0x05060708, 0x090A0B0C, 0x0D0E0F10);
             Assert.AreEqual("0102030405060708090A0B0C0D0E0F10", guid.ToHexString());
         }
 
         [Test]
         public void SerializableGuidToStringShouldReturnCorrectHexString()
         {
-            var guid = new SerializableGuid.Runtime.SerializableGuid(0x01020304, 0x05060708, 0x090A0B0C, 0x0D0E0F10);
+            var guid = new SerializableGuid(0x01020304, 0x05060708, 0x090A0B0C, 0x0D0E0F10);
             Assert.AreEqual("0102030405060708090A0B0C0D0E0F10", guid.ToString());
         }
 
@@ -135,23 +135,23 @@ namespace fefek5.SerializableGuid.Tests
         [Test]
         public void SerializableGuidEqualsSerializableGuidShouldReturnTrueForEqualGuids()
         {
-            var guid1 = new SerializableGuid.Runtime.SerializableGuid(1, 2, 3, 4);
-            var guid2 = new SerializableGuid.Runtime.SerializableGuid(1, 2, 3, 4);
+            var guid1 = new SerializableGuid(1, 2, 3, 4);
+            var guid2 = new SerializableGuid(1, 2, 3, 4);
             Assert.IsTrue(guid1.Equals(guid2));
         }
 
         [Test]
         public void SerializableGuidEqualsSerializableGuidShouldReturnFalseForDifferentGuids()
         {
-            var guid1 = new SerializableGuid.Runtime.SerializableGuid(1, 2, 3, 4);
-            var guid2 = new SerializableGuid.Runtime.SerializableGuid(4, 3, 2, 1);
+            var guid1 = new SerializableGuid(1, 2, 3, 4);
+            var guid2 = new SerializableGuid(4, 3, 2, 1);
             Assert.IsFalse(guid1.Equals(guid2));
         }
 
         [Test]
         public void SerializableGuidEqualsGuidShouldReturnTrueForEqualGuids()
         {
-            var guid1 = SerializableGuid.Runtime.SerializableGuid.NewGuid();
+            var guid1 = SerializableGuid.NewGuid();
             var guid2 = new Guid(guid1.ToGuid().ToByteArray());
 
             Assert.IsTrue(guid1.Equals(guid2));
@@ -160,21 +160,21 @@ namespace fefek5.SerializableGuid.Tests
         [Test]
         public void SerializableGuidEqualsStringShouldReturnTrueForEqualHexStrings()
         {
-            var guid = new SerializableGuid.Runtime.SerializableGuid(0x01020304, 0x05060708, 0x090A0B0C, 0x0D0E0F10);
+            var guid = new SerializableGuid(0x01020304, 0x05060708, 0x090A0B0C, 0x0D0E0F10);
             Assert.IsTrue(guid.Equals("0102030405060708090A0B0C0D0E0F10"));
         }
 
         [Test]
         public void SerializableGuidEqualsStringShouldReturnFalseForDifferentHexStrings()
         {
-            var guid = new SerializableGuid.Runtime.SerializableGuid(1, 2, 3, 4);
+            var guid = new SerializableGuid(1, 2, 3, 4);
             Assert.IsFalse(guid.Equals("0403020108070605090A0B0C0D0E0F10"));
         }
 
         [Test]
         public void SerializableGuidEqualsObjectShouldWorkCorrectly()
         {
-            var guid = SerializableGuid.Runtime.SerializableGuid.NewGuid();
+            var guid = SerializableGuid.NewGuid();
             Assert.IsTrue(guid.Equals((object)guid));
             Assert.IsTrue(guid.Equals((object)guid.ToGuid()));
             Assert.IsTrue(guid.Equals((object)guid.ToHexString()));
@@ -184,8 +184,8 @@ namespace fefek5.SerializableGuid.Tests
         [Test]
         public void SerializableGuidGetHashCodeShouldReturnSameHashCodeForEqualGuids()
         {
-            var guid1 = new SerializableGuid.Runtime.SerializableGuid(1, 2, 3, 4);
-            var guid2 = new SerializableGuid.Runtime.SerializableGuid(1, 2, 3, 4);
+            var guid1 = new SerializableGuid(1, 2, 3, 4);
+            var guid2 = new SerializableGuid(1, 2, 3, 4);
             Assert.AreEqual(guid1.GetHashCode(), guid2.GetHashCode());
         }
 
@@ -193,14 +193,14 @@ namespace fefek5.SerializableGuid.Tests
         public void SerializableGuidImplicitOperatorGuidToSerializableGuid()
         {
             var originalGuid = Guid.NewGuid();
-            SerializableGuid.Runtime.SerializableGuid serializableGuid = originalGuid;
+            SerializableGuid serializableGuid = originalGuid;
             Assert.AreEqual(originalGuid, serializableGuid.ToGuid());
         }
 
         [Test]
         public void SerializableGuidImplicitOperatorSerializableGuidToGuid()
         {
-            var serializableGuid = new SerializableGuid.Runtime.SerializableGuid(Guid.NewGuid());
+            var serializableGuid = new SerializableGuid(Guid.NewGuid());
             Guid guid = serializableGuid;
             Assert.AreEqual(serializableGuid.ToGuid(), guid);
         }
@@ -208,9 +208,9 @@ namespace fefek5.SerializableGuid.Tests
         [Test]
         public void SerializableGuidOperatorEqualsAndNotEqualsSerializableGuid()
         {
-            var guid1 = new SerializableGuid.Runtime.SerializableGuid(1, 2, 3, 4);
-            var guid2 = new SerializableGuid.Runtime.SerializableGuid(1, 2, 3, 4);
-            var guid3 = new SerializableGuid.Runtime.SerializableGuid(4, 3, 2, 1);
+            var guid1 = new SerializableGuid(1, 2, 3, 4);
+            var guid2 = new SerializableGuid(1, 2, 3, 4);
+            var guid3 = new SerializableGuid(4, 3, 2, 1);
             Assert.IsTrue(guid1 == guid2);
             Assert.IsFalse(guid1 == guid3);
             Assert.IsFalse(guid1 != guid2);
@@ -220,7 +220,7 @@ namespace fefek5.SerializableGuid.Tests
         [Test]
         public void SerializableGuidOperatorEqualsAndNotEqualsGuid()
         {
-            var serializableGuid = new SerializableGuid.Runtime.SerializableGuid(0x01020304, 0x05060708, 0x090A0B0C, 0x0D0E0F10);
+            var serializableGuid = new SerializableGuid(0x01020304, 0x05060708, 0x090A0B0C, 0x0D0E0F10);
             var guid = serializableGuid.ToGuid();
             var guid2 = new Guid("04030201-0807-0605-090A-0B0C0D0E0F10");
 
@@ -233,7 +233,7 @@ namespace fefek5.SerializableGuid.Tests
         [Test]
         public void SerializableGuidOperatorEqualsAndNotEqualsString()
         {
-            var guid = new SerializableGuid.Runtime.SerializableGuid(0x01020304, 0x05060708, 0x090A0B0C, 0x0D0E0F10);
+            var guid = new SerializableGuid(0x01020304, 0x05060708, 0x090A0B0C, 0x0D0E0F10);
             Assert.IsTrue(guid == "0102030405060708090A0B0C0D0E0F10");
             Assert.IsFalse(guid == "0403020108070605090A0B0C0D0E0F10");
             Assert.IsFalse(guid != "0102030405060708090A0B0C0D0E0F10");
