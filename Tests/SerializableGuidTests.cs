@@ -105,6 +105,7 @@ namespace fefek5.SerializableGuidVariable.Tests
         {
             Assert.IsFalse(SerializableGuid.IsHexString("invalid"));
             Assert.IsFalse(SerializableGuid.IsHexString("0102030405060708090A0B0C0D0E0F101"));
+            Assert.IsFalse(SerializableGuid.IsHexString("32_lenght_string_123456789123456"));
             Assert.IsFalse(SerializableGuid.IsHexString(null));
         }
 
